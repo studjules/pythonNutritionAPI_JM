@@ -28,19 +28,20 @@ class VeganRecipe:
         except requests.exceptions.RequestException as e:
             return {"error": "RequestException", "message": str(e)}
 
-# VeganRecipe credentials
-app_id = '81f8d87f'
-app_key = '25e930457335a2fdcf2d293c6de3fcde'
 
-# Create an instance of the EdamamAPI class
-veg_rec = VeganRecipe(app_id, app_key)
+if __name__ == '__main__':
+    app_id = '81f8d87f'
+    app_key = '25e930457335a2fdcf2d293c6de3fcde'
 
-# Perform a recipe search
-query = 'fried rice'
-response_data = veg_rec.search_recipes(query)
+    # Create an instance of the EdamamAPI class
+    veg_rec = VeganRecipe(app_id, app_key)
 
-# Check and print the API response
-if 'error' in response_data:
-    print("Error:", response_data['error'], response_data['message'])
-else:
-    print("API Response:", response_data)
+    # Perform a recipe search
+    query = 'potatog'
+    response_data = veg_rec.search_recipes(query)
+
+    # Check and print the API response
+    if 'error' in response_data:
+        print("Error:", response_data['error'], response_data['message'])
+    else:
+     print("API Response:", response_data)

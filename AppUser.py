@@ -67,6 +67,25 @@ class AppUser():
     def dislikes(self):
         return self._dislikes
 
+    @name.setter
+    def name(self, new_name):
+        self._name = new_name
+    def weight(self, new_weight):
+        self._weight = new_weight
+    def lifestyle(self, new_lifestyle):
+        self._lifestyle = new_lifestyle
+    def allergies(self, new_allergies):
+        self._allergies = new_allergies
+    def dislikes(self, new_dislikes):
+        self._dislikes = new_dislikes
 
 
 
+if __name__ == "__main__":
+    user = AppUser()
+    user.enter_details()
+    print(user.name)
+    print(user.weight)
+    print(user.lifestyle)
+    print(user.allergies)
+    print(user.dislikes)
