@@ -1,12 +1,12 @@
 import requests
 
-class VeganRecipe:
+class Recipe:
     def __init__(self, app_id, app_key):
         self.app_id = app_id
         self.app_key = app_key
         self.base_url = 'https://api.edamam.com/api/recipes/v2'
 
-    def search_vegan_breakfast_recipe(self):
+    def search_breakfast_recipe(self):
         # Set the endpoint and query parameters
         endpoint = self.base_url
         health_labels = []
@@ -35,6 +35,8 @@ class VeganRecipe:
 
             # Extract and return information about the first recipe
             return {
+
+                "totalNutrients": br_recipes[0].get("totalNutrients"),
                 "Recipe Name": br_recipes[0].get("label"),
                 "Recipe Image": br_recipes[0].get("image"),
                 "Recipe Ingredients": br_recipes[0].get("ingredientLines"),
@@ -45,7 +47,7 @@ class VeganRecipe:
             # Handle API request error (e.g., return an error message)
             return {"Error": response.status_code, "Message": response.text}
 
-    def search_vegan_lunch_recipe(self):
+    def search_lunch_recipe(self):
         # Set the endpoint and query parameters
         endpoint = self.base_url
         health_labels = []
@@ -73,18 +75,19 @@ class VeganRecipe:
             lu_recipes = [hit["recipe"] for hit in data.get("hits", [])[:100]]
 
             # Extract and return information about the first recipe
+        for i in  len(lu_recipes):
             return {
-                "Recipe Name": lu_recipes[2].get("label"),
-                "Recipe Image": lu_recipes[2].get("image"),
-                "Recipe Ingredients": lu_recipes[2].get("ingredientLines"),
-                "URL": lu_recipes[2].get("url"),
+                "Calories": lu_recipes[i].get("totalNutrients",{}).get('ENERC_KCAL',{}).get('quantity'),
+                "Recipe Image": lu_recipes[i].get("image"),
+                "Recipe Ingredients": lu_recipes[i].get("ingredientLines"),
+                "URL": lu_recipes[i].get("url"),
                 "Listlength": len(lu_recipes),
             }
         else:
             # Handle API request error (e.g., return an error message)
             return {"Error": response.status_code, "Message": response.text}
 
-    def search_vegan_dinner_recipe(self):
+    def search_dinner_recipe(self):
         # Set the endpoint and query parameters
         endpoint = self.base_url
         health_labels = []
@@ -113,7 +116,7 @@ class VeganRecipe:
 
             # Extract and return information about the first recipe
             return {
-                "Nutrients": di_recipes[1].get("nutrients[CA]"),
+
                 "Recipe Name": di_recipes[1].get("label"),
                 "Recipe Image": di_recipes[1].get("image"),
                 "Recipe Ingredients": di_recipes[1].get("ingredientLines"),
@@ -130,11 +133,11 @@ if __name__ == "__main__":
     # Example usage:
     app_id = "81f8d87f"
     app_key = "25e930457335a2fdcf2d293c6de3fcde"
-    recipe_searcher = VeganRecipe(app_id, app_key)
+    recipe_searcher = Recipe(app_id, app_key)
 
-    recipe_breakfast = recipe_searcher.search_vegan_breakfast_recipe()
-    recipe_lunch = recipe_searcher.search_vegan_lunch_recipe()
-    recipe_dinner = recipe_searcher.search_vegan_dinner_recipe()
+    recipe_breakfast = recipe_searcher.search_breakfast_recipe()
+    recipe_lunch = recipe_searcher.search_lunch_recipe()
+    recipe_dinner = recipe_searcher.search_dinner_recipe()
 
     print(recipe_breakfast)
     print(recipe_lunch)
