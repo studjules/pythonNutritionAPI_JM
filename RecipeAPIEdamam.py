@@ -33,22 +33,24 @@ class Recipe:
             # Access the first recipe in the response
             br_recipes = [hit["recipe"] for hit in data.get("hits", [])[:100]]
 
-            # Extract and return information about the first recipe
-            return {
+        # Return the list of recipe information
+            br_result = []
+            for i in range(len(br_recipes)):
+                recipe_info = {
+                    "Calories": br_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
+                    "Recipe Image": br_recipes[i].get("image"),
+                    "Recipe Ingredients": br_recipes[i].get("ingredientLines"),
+                    "URL": br_recipes[i].get("url"),
+                }
+                br_result.append(recipe_info)
 
-                "totalNutrients": br_recipes[0].get("totalNutrients"),
-                "Recipe Name": br_recipes[0].get("label"),
-                "Recipe Image": br_recipes[0].get("image"),
-                "Recipe Ingredients": br_recipes[0].get("ingredientLines"),
-                "URL": br_recipes[0].get("url"),
-                "Listlength": len(br_recipes),
-            }
+            return br_result
         else:
             # Handle API request error (e.g., return an error message)
             return {"Error": response.status_code, "Message": response.text}
 
+    import requests
     def search_lunch_recipe(self):
-        # Set the endpoint and query parameters
         endpoint = self.base_url
         health_labels = []
         diet = ["high-protein"]
@@ -74,15 +76,20 @@ class Recipe:
             # Access the first recipe in the response
             lu_recipes = [hit["recipe"] for hit in data.get("hits", [])[:100]]
 
-            # Extract and return information about the first recipe
-        for i in  len(lu_recipes):
-            return {
-                "Calories": lu_recipes[i].get("totalNutrients",{}).get('ENERC_KCAL',{}).get('quantity'),
-                "Recipe Image": lu_recipes[i].get("image"),
-                "Recipe Ingredients": lu_recipes[i].get("ingredientLines"),
-                "URL": lu_recipes[i].get("url"),
-                "Listlength": len(lu_recipes),
-            }
+            # Extract and return information about the first 100 recipes
+            lu_result = []
+            for i in range(len(lu_recipes)):
+                recipe_info = {
+                    "Calories": lu_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
+                    "Recipe Image": lu_recipes[i].get("image"),
+                    "Recipe Ingredients": lu_recipes[i].get("ingredientLines"),
+                    "URL": lu_recipes[i].get("url"),
+                }
+                lu_result.append(recipe_info)
+
+            # Return the list of recipe information
+            return lu_result
+
         else:
             # Handle API request error (e.g., return an error message)
             return {"Error": response.status_code, "Message": response.text}
@@ -114,16 +121,18 @@ class Recipe:
             # Access the first recipe in the response
             di_recipes = [hit["recipe"] for hit in data.get("hits", [])[:100]]
 
-            # Extract and return information about the first recipe
-            return {
+            #Extract list of recipes
+            di_result = []
+            for i in range(len(di_recipes)):
+                recipe_info = {
+                    "Calories": di_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
+                    "Recipe Image": di_recipes[i].get("image"),
+                    "Recipe Ingredients": di_recipes[i].get("ingredientLines"),
+                    "URL": di_recipes[i].get("url"),
+                }
+                di_result.append(recipe_info)
 
-                "Recipe Name": di_recipes[1].get("label"),
-                "Recipe Image": di_recipes[1].get("image"),
-                "Recipe Ingredients": di_recipes[1].get("ingredientLines"),
-                "URL": di_recipes[1].get("url"),
-                "Listlength": len(di_recipes),
-
-            }
+            return di_result
         else:
             # Handle API request error (e.g., return an error message)
             return {"Error": response.status_code, "Message": response.text}
@@ -139,8 +148,11 @@ if __name__ == "__main__":
     recipe_lunch = recipe_searcher.search_lunch_recipe()
     recipe_dinner = recipe_searcher.search_dinner_recipe()
 
-    print(recipe_breakfast)
+    print("breakfast recipes:")
+    print(recipe_breakfast[0:5])
+    print("lunch recipes:")
     print(recipe_lunch)
+    print("dinner recipes:")
     print(recipe_dinner)
 
 
