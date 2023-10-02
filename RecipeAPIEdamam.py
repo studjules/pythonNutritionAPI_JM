@@ -1,6 +1,6 @@
 import requests
 
-class Recipe:
+class Recipelists:
     def __init__(self, app_id, app_key):
         self.app_id = app_id
         self.app_key = app_key
@@ -126,9 +126,7 @@ class Recipe:
             for i in range(len(di_recipes)):
                 recipe_info = {
                     "Calories": di_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
-                    "Recipe Image": di_recipes[i].get("image"),
-                    "Recipe Ingredients": di_recipes[i].get("ingredientLines"),
-                    "URL": di_recipes[i].get("url"),
+                    
                 }
                 di_result.append(recipe_info)
 
@@ -140,18 +138,15 @@ class Recipe:
 
 if __name__ == "__main__":
     # Example usage:
-    app_id = "81f8d87f"
-    app_key = "25e930457335a2fdcf2d293c6de3fcde"
-    recipe_searcher = Recipe(app_id, app_key)
+    app_id = "26290cfb"
+    app_key = "57174ba13d0a17c660851f47e9d59280"
+    recipe_searcher = Recipelists(app_id, app_key)
 
     recipe_breakfast = recipe_searcher.search_breakfast_recipe()
     recipe_lunch = recipe_searcher.search_lunch_recipe()
     recipe_dinner = recipe_searcher.search_dinner_recipe()
 
-    print("breakfast recipes:")
-    print(recipe_breakfast[0:5])
-    print("lunch recipes:")
-    print(recipe_lunch)
+   
     print("dinner recipes:")
     print(recipe_dinner)
 

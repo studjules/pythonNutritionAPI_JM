@@ -1,48 +1,48 @@
+import pulp
+from pulp import *
 
-from docplex.mp.model import Model
+# Create a LP Minimization problem
+def calculation():
+    
+    model = LpProblem("Maximize_Protein", LpMaximize)
 
-class optimizer:
-    def __init__(self):
-        self.model = Model(name="Nutrientoptimizer")
-        # Define the decision variables with different names
-        self.Calories_var = self.model.continuous_var(name="Calories")
-        self.Fat_var = self.model.continuous_var(name="Fat")
-        self.Protein_var = self.model.continuous_var(name="Protein")
+    # Create problem Variables
+    protein = LpVariable("Protein", lowBound=0, cat='Continuous')
+    calories = LpVariable("Calories", lowBound=0, cat='Continuous')
+    fat = LpVariable("Fat", lowBound=0, cat='Continuous')
+    carbs = LpVariable("Carbs", lowBound=0, cat='Continuous')
+    fiber = LpVariable("Fiber", lowBound=0, cat='Continuous')
+    sugar = LpVariable("Sugar", lowBound=0, cat='Continuous')
+    cholesterol = LpVariable("Cholesterol", lowBound=0, cat='Continuous')
+    sodium = LpVariable("Sodium", lowBound=0, cat='Continuous')
+    calcium = LpVariable("Calcium", lowBound=0, cat='Continuous')
+    potassium = LpVariable("Potassium", lowBound=0, cat='Continuous')
+    iron = LpVariable("Iron", lowBound=0, cat='Continuous')
+    zinc = LpVariable("Zinc", lowBound=0, cat='Continuous')
+    vitamin_a = LpVariable("Vitamin_A", lowBound=0, cat='Continuous')
+    vitamin_c = LpVariable("Vitamin_C", lowBound=0, cat='Continuous')
+    vitamin_d = LpVariable("Vitamin_D", lowBound=0, cat='Continuous')
+    vitamin_b6 = LpVariable("Vitamin_B6", lowBound=0, cat='Continuous')
+    vitamin_b12 = LpVariable("Vitamin_B12", lowBound=0, cat='Continuous')
 
+    # Objective Function
+    model += protein, "Maximize_Protein"
 
-    def add_constraints(self, recipe_info):
-        # Add constraints
-        self.model.add_constraint(self.Calories_var >= recipe_info["Calories"])
-        self.model.add_constraint(self.Fat_var >= recipe_info["Fat"])
-        self.model.add_constraint(self.Protein_var >= recipe_info["Protein"])
-        self.model.add_constraint(self.Calories_var <= 2000)
-        self.model.add_constraint(self.Fat_var <= 65)
-
-    def add_objective(self):
-        # Add objective
-        self.model.maximize(self.Protein_var)
-
-    def solve(self):
-        # Solve the model
-        self.model.solve()
-        return self.model.solution
-
-if __name__ == "__main__":
-    # Create an instance of the optimizer class
-    opt = optimizer()
-    # Define the recipe information
-    recipe_info = {"Calories": 100, "Fat": 10, "Protein": 20}
-    # Add constraints
-    opt.add_constraints(recipe_info)
-    # Add objective
-    opt.add_objective()
-    # Solve the model
-    solution = opt.solve()
-    # Print the solution
-    print(solution)
-    # Print the objective value
-    print(solution.objective_value)
-    # Print the decision variables
-    print(solution.get_value(opt.Calories_var))
-    print(solution.get_value(opt.Fat_var))
-    print(solution.get_value(opt.Protein_var))
+    # Constraints
+    model += calories >= 2000, "Calories"
+    model += fat >= 65, "Fat"
+    model += carbs >= 300, "Carbs"
+    model += fiber >= 25, "Fiber"
+    model += sugar >= 50, "Sugar"
+    model += cholesterol >= 300, "Cholesterol"  
+    model += sodium >= 2400, "Sodium"
+    model += calcium >= 1000, "Calcium"
+    model += potassium >= 3500, "Potassium"
+    model += iron >= 8, "Iron"
+    model += zinc >= 15, "Zinc"
+    model += vitamin_a >= 900, "Vitamin_A"
+    model += vitamin_c >= 90, "Vitamin_C"
+    model += vitamin_d >= 20, "Vitamin_D"
+    model += vitamin_b6 >= 2, "Vitamin_B6"
+    model += vitamin_b12 >= 6, "Vitamin_B12"
+    
