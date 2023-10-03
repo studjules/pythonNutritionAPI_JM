@@ -37,10 +37,15 @@ class Recipelists:
             br_result = []
             for i in range(len(br_recipes)):
                 recipe_info = {
-                    "Calories": br_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
-                    "Recipe Image": br_recipes[i].get("image"),
-                    "Recipe Ingredients": br_recipes[i].get("ingredientLines"),
-                    "URL": br_recipes[i].get("url"),
+                    "Calories(kcal)": br_recipes[i].get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
+                    "Zink(mg)": br_recipes[i].get("totalNutrients", {}).get('ZN', {}).get('quantity'),
+                    "FAT(g)": br_recipes[i].get("totalNutrients", {}).get('FAT', {}).get('quantity'),
+                    "SUGAR(g)": br_recipes[i].get("totalNutrients", {}).get('SUGAR', {}).get('quantity'),
+                    "Protein(g)": br_recipes[i].get("totalNutrients", {}).get('PROCNT', {}).get('quantity'),
+                    "Magnesium(mg)": br_recipes[i].get("totalNutrients", {}).get('MG', {}).get('quantity'),
+                    "Iron(mg)": br_recipes[i].get("totalNutrients", {}).get('FE', {}).get('quantity'),
+                    "Fiber(g)": br_recipes[i].get("totalNutrients", {}).get('FIBTG', {}).get('quantity'),
+        	        "Carbohydrates(g)": br_recipes[i].get("totalNutrients", {}).get('CHOCDF', {}).get('quantity'),
                 }
                 br_result.append(recipe_info)
 
@@ -147,7 +152,7 @@ if __name__ == "__main__":
     recipe_dinner = recipe_searcher.search_dinner_recipe()
 
    
-    print("dinner recipes:")
-    print(recipe_dinner)
+    print("breakfast recipes:")
+    print(recipe_breakfast)
 
 
