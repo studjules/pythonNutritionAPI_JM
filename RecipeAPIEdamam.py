@@ -7,6 +7,19 @@ class RecipeAPI:
         self.app_key = app_key
         self.base_url = base_url
 
+    def get_recipe_title(self, url):
+        # Make an HTTP GET request to the recipe URL
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            # Parse the HTML content of the page
+            soup = BeautifulSoup(response.text, 'html.parser')
+            # Extract the title
+            title = soup.title.string if soup.title else "Title not found"
+            return title
+        else:
+            return "Title not found"
+        
     def search_recipes(self, meal_type):
         # Set the endpoint and query parameters
         endpoint = self.base_url
