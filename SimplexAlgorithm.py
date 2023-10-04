@@ -45,4 +45,6 @@ def calculation():
     model += vitamin_d >= 20, "Vitamin_D"
     model += vitamin_b6 >= 2, "Vitamin_B6"
     model += vitamin_b12 >= 6, "Vitamin_B12"
-    
+
+    # Solve the problem
+    status = model.solve()
