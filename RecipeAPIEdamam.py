@@ -1,24 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
+import certifi
 
 class RecipeAPI:
     def __init__(self, app_id, app_key, base_url):
         self.app_id = app_id
         self.app_key = app_key
         self.base_url = base_url
-
-    def get_recipe_title(self, url):
-        # Make an HTTP GET request to the recipe URL
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            # Parse the HTML content of the page
-            soup = BeautifulSoup(response.text, 'html.parser')
-            # Extract the title
-            title = soup.title.string if soup.title else "Title not found"
-            return title
-        else:
-            return "Title not found"
         
     def search_recipes(self, meal_type):
         # Set the endpoint and query parameters
@@ -50,7 +38,7 @@ class RecipeAPI:
             result = []
             for recipe in recipes:
                 recipe_info = {
-                    "Title": self.get_recipe_title(recipe.get("url", {})),
+                    "Url": recipe.get("url", {}),
                     "Calories(kcal)": recipe.get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
                     "Zinc(mg)": recipe.get("totalNutrients", {}).get('ZN', {}).get('quantity'),
                     "FAT(g)": recipe.get("totalNutrients", {}).get('FAT', {}).get('quantity'),
@@ -84,12 +72,12 @@ if __name__ == "__main__":
 
     print("Number of breakfast recipes:", len(breakfast_recipes))
     print("breakfast recipes:")
-    print(breakfast_recipes)
+    print(breakfast_recipes[:2])
     print("Number of lunch recipes:", len(lunch_recipes))
     print("lunch recipes:")
-    print(lunch_recipes)
+    print(lunch_recipes[:2])
     print("Number of dinner recipes:", len(dinner_recipes))
     print("dinner recipes:")
-    print(dinner_recipes)
+    print(dinner_recipes[:2])
 
 

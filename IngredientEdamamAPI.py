@@ -128,13 +128,13 @@ class IngredientScore:
 
 if __name__ == "__main__":
     # Example usage:
-    app_id = "be287d5f"
-    app_key = "5a07b36fceb8277d5e6249ab505081ff"
-    nutrient_searcher = VeganRecipe(app_id, app_key)
+    app_id = "26290cfb"
+    app_key = "57174ba13d0a17c660851f47e9d59280"
+    nutrient_searcher = IngredientScore(app_id, app_key)
 
-    recipe_breakfast = recipe_searcher.search_vegan_breakfast_recipe()
-    recipe_lunch = recipe_searcher.search_vegan_lunch_recipe()
-    recipe_dinner = recipe_searcher.search_vegan_dinner_recipe()
+    recipe_breakfast = nutrient_searcher.search_vegan_breakfast_recipe()
+    recipe_lunch = nutrient_searcher.search_vegan_lunch_recipe()
+    recipe_dinner = nutrient_searcher.search_vegan_dinner_recipe()
 
     print(recipe_breakfast)
     print(recipe_lunch)

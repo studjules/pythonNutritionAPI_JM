@@ -37,6 +37,7 @@ class AppUser():
             except ValueError as e:
                 print(f"Invalid input: {e}. Please try again.")
 
+
         while True:
             try:
                 self.allergies = input("What are your allergies?(if you have none, type none) ")
@@ -89,3 +90,7 @@ if __name__ == "__main__":
     print(user.lifestyle)
     print(user.allergies)
     print(user.dislikes)
+
+
+
+
