@@ -22,7 +22,12 @@ class Recipe_optimizer(RecipeAPI):
             for recipe in combo:
                 for key, value in recipe.items():
                     if key in combined_values:
-                        combined_values[key] += value
+                        if key == "Url":
+                            combined_values["Url"] += f" {value}"
+                        if key == "Meal_type":
+                            combined_values["Meal_type"] += f" {value}"
+                        else:
+                            combined_values[key] += value
                     else:
                         combined_values[key] = value
             results.append(combined_values)
@@ -32,7 +37,8 @@ class Recipe_optimizer(RecipeAPI):
                 valid_recipe_combinations.append(result)
             else:
                 continue
-        print(f"The valid recipes are{valid_recipe_combinations[:]}")
+        random_int = random.randint(0, len(valid_recipe_combinations) + 1)
+        print(f"Here is your valid Recipe-combination of the day{valid_recipe_combinations[random_int]}")
         return valid_recipe_combinations
 
 

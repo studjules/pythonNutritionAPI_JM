@@ -38,6 +38,7 @@ class RecipeAPI:
             result = []
             for recipe in recipes:
                 recipe_info = {
+                    "Meal_type": meal_type,
                     "Url": recipe.get("url", {}),
                     "Calories(kcal)": recipe.get("totalNutrients", {}).get('ENERC_KCAL', {}).get('quantity'),
                     "Zinc(mg)": recipe.get("totalNutrients", {}).get('ZN', {}).get('quantity'),
@@ -48,7 +49,7 @@ class RecipeAPI:
                     "Iron(mg)": recipe.get("totalNutrients", {}).get('FE', {}).get('quantity'),
                     "Fiber(g)": recipe.get("totalNutrients", {}).get('FIBTG', {}).get('quantity'),
                     "Carbohydrates(g)": recipe.get("totalNutrients", {}).get('CHOCDF', {}).get('quantity'),
-                    "URL": recipe.get("url", {}),
+
                 }
                 result.append(recipe_info)
 
