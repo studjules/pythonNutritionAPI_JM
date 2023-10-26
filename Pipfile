@@ -8,6 +8,9 @@ requests = "*"
 pipenv = "*"
 install = "*"
 bs4 = "*"
+plotly = "*"
+pandas = "*"
+numpy = "*"
 
 [dev-packages]
 

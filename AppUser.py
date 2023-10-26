@@ -56,6 +56,9 @@ class AppUser():
             except ValueError as e:
                 print(f"Invalid input: {e}. Please try again.")
 
+    def get_profile(self):
+        return self.name, self.weight, self.lifestyle, self.allergies, self.dislikes
+
     @property
     def name(self):
         return self._name
@@ -85,11 +88,11 @@ class AppUser():
 if __name__ == "__main__":
     user = AppUser()
     user.enter_details()
-    print(user.name)
-    print(user.weight)
-    print(user.lifestyle)
-    print(user.allergies)
-    print(user.dislikes)
+    print(f"Name: {user.name}")
+    print(f"weight: {user.weight}")
+    print(f"Lifestyle: {user.lifestyle}")
+    print(f"Allergies: {user.allergies}")
+    print(f"Dislikes: {user.dislikes}")
 
 
 
