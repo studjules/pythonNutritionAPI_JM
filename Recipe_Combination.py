@@ -32,12 +32,14 @@ class Recipe_optimizer(RecipeAPI):
                         combined_values[key] = value
             results.append(combined_values)
         valid_recipe_combinations = []
+
         for i, result in enumerate(results):
-            if result["Protein(g)"] >= 80 and result["FAT(g)"] <= 80 and result["Calories(kcal)"] >= 2000:
+            if result["Protein(g)"] >= 80 and result["FAT(g)"] <= 80 and result["Calories(kcal)"] >= 2000 and result["SUGAR(g)"] <= 10 \
+                    and result["Iron(mg)"] >= 13:
                 valid_recipe_combinations.append(result)
             else:
                 continue
-        random_int = random.randint(0, len(valid_recipe_combinations) + 1)
+        random_int = random.randint(0, len(valid_recipe_combinations))
         print(f"Here is your valid Recipe-combination of the day{valid_recipe_combinations[random_int]}")
         return valid_recipe_combinations
 
